@@ -1,37 +1,48 @@
+// server.js
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
-require("dotenv").config();
-
 const app = express();
+const PORT = 5000;
+
 app.use(cors());
 app.use(express.json());
 
-// ✅ MongoDB Connect — Clean & Updated
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Atlas Connected"))
-  .catch(err => console.error("❌ MongoDB Error:", err));
+// Dummy user for demo
+const dummyUser = {
+  username: "pawan@72",
+  emailOrPhone: "pawankumarbxr2019@gmail.com",
+  password: "123456",
+};
 
-// 🔹 Route for testing
-app.get("/", (req, res) => {
-  res.send("API is working 🚀");
-});
-
-// 🔹 POST Route for saving data
-const User = require("./models/User");
-
-app.post("/users", async (req, res) => {
-  try {
-    const { name, email } = req.body;
-    const newUser = new User({ name, email });
-    await newUser.save();
-
-    res.status(201).json({ message: "User saved", user: newUser });
-  } catch (err) {
-    console.error("❌ Error saving user:", err);
-    res.status(500).json({ message: "Server error" });
+// Sign Up route (just respond for now)
+app.post("/signup", (req, res) => {
+  const { username, emailOrPhone, password } = req.body;
+  if (!username || !emailOrPhone || !password) {
+    return res.status(400).json({ error: "All fields are required" });
   }
+  console.log("New User:", req.body);
+  res.json({ message: "Signup successful" });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// Login route
+app.post("/login", (req, res) => {
+  const { emailOrPhone, password } = req.body;
+
+  if (
+    emailOrPhone === dummyUser.emailOrPhone &&
+    password === dummyUser.password
+  ) {
+    return res.json({
+      user: {
+        name: dummyUser.username,
+        email: dummyUser.emailOrPhone,
+      },
+    });
+  }
+
+  res.status(401).json({ error: "Invalid credentials" });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server started on http://localhost:${PORT}`);
+});

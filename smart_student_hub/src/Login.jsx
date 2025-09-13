@@ -1,7 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 
 export default function Login({ onBack }) {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     username: "",
     emailOrPhone: "",
@@ -12,47 +15,39 @@ export default function Login({ onBack }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // 🔹 Signup API call
-  const handleSignUp = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      alert(data.message || data.error);
-    } catch (err) {
-      console.error(err);
-      alert("Signup failed");
-    }
-  };
-
-  // 🔹 Login API call
   const handleSignIn = async () => {
     try {
       const res = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          emailOrPhone: form.emailOrPhone,
+          password: form.password,
+        }),
       });
+
       const data = await res.json();
-      if (data.error) {
-        alert(data.error);
-      } else {
-        alert("Login successful");
-        console.log("User Data:", data.user);
+
+      if (!res.ok) {
+        alert(data.error || "Login failed");
+        return;
       }
+
+      alert("Thank you for logging in ✨");
+      navigate("/student-dashboard", { state: { user: data.user } });
     } catch (err) {
-      console.error(err);
+      console.error("Login Error:", err.message);
       alert("Login failed");
     }
+  };
+
+  const handleSignUp = () => {
+    alert("Signup flow not implemented yet");
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-600 to-green-500 p-4">
       <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md relative">
-        {/* Back Button */}
         <button
           onClick={onBack}
           className="absolute top-4 left-4 flex items-center text-gray-600 hover:text-blue-600"
@@ -62,10 +57,9 @@ export default function Login({ onBack }) {
         </button>
 
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Registation Form
+          Student Login
         </h2>
 
-        {/* Form */}
         <div className="space-y-4">
           <input
             type="text"
@@ -93,7 +87,6 @@ export default function Login({ onBack }) {
           />
         </div>
 
-        {/* Buttons */}
         <div className="mt-6 space-y-3">
           <button
             onClick={handleSignIn}

@@ -8,13 +8,14 @@ import Portfolio from "./Portfolio";
 import InstitutionDashboard from "./InstitutionDashboard";
 import Footer from "./Footer";
 import Login from "./Login";
+import StudentPortfolio from "./StudentPortfolio"; 
+import ActivityTracker from "./ActivityTracker";
 
 export default function App() {
   return (
     <Router>
-      <div className="font-sans scroll-smooth">
+      <div className="font-sans scroll-smooth min-h-screen flex flex-col">
         <Navbar />
-
         <Routes>
           {/* Home Page */}
           <Route
@@ -28,13 +29,20 @@ export default function App() {
                   <Portfolio />
                   <InstitutionDashboard />
                   <Footer />
+                  <ActivityTracker/>
                 </div>
               </>
             }
           />
 
-          {/* Login Page */}
-          <Route path="/login" element={<Login />} />
+         
+          <Route
+            path="/login"
+            element={<Login onBack={() => window.history.back()} />}
+          />
+
+          
+          <Route path="/student-dashboard" element={<StudentPortfolio />} />
         </Routes>
       </div>
     </Router>
