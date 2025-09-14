@@ -11,8 +11,6 @@ const dummyUser = {
   emailOrPhone: "pawankumarbxr2019@gmail.com",
   password: "123456",
 };
-
-
 app.post("/signup", (req, res) => {
   const { username, emailOrPhone, password } = req.body;
   if (!username || !emailOrPhone || !password) {
@@ -21,11 +19,8 @@ app.post("/signup", (req, res) => {
   console.log("New User:", req.body);
   res.json({ message: "Signup successful" });
 });
-
-
 app.post("/login", (req, res) => {
   const { emailOrPhone, password } = req.body;
-
   if (
     emailOrPhone === dummyUser.emailOrPhone &&
     password === dummyUser.password
@@ -37,10 +32,8 @@ app.post("/login", (req, res) => {
       },
     });
   }
-
   res.status(401).json({error:"Invalid Username!"});
 });
-
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
 });

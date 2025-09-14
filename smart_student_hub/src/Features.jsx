@@ -15,7 +15,7 @@ const featuresBottom = [
     title: "Dynamic Student Dashboard",
     subtitle:
       "Real-time updates on academic performance, attendance, and activities with intuitive visualizations.",
-    tag: "Core Feature",
+    
     path: "/StudentDashboard",
   },
   {
@@ -23,7 +23,6 @@ const featuresBottom = [
     title: "Activity Tracker",
     subtitle:
       "Upload and validate participation in seminars, conferences, MOOCs, internships, and more.",
-    tag: "Popular",
     path: "/activity-tracker",
   },
   {
@@ -31,7 +30,6 @@ const featuresBottom = [
     title: "Faculty Approval Panel",
     subtitle:
       "Faculty & admin approval system to maintain credibility and verify all uploaded records.",
-    tag: "Verified",
     path: "/faculty-approval",
   },
   {
@@ -39,7 +37,6 @@ const featuresBottom = [
     title: "Auto-Generated Portfolio",
     subtitle:
       "Downloadable & shareable verified student portfolio in PDF format or web link.",
-    tag: "Essential",
     path: "/auto-portfolio",
   },
   {
@@ -47,7 +44,6 @@ const featuresBottom = [
     title: "Analytics & Reporting",
     subtitle:
       "Generate reports for NAAC, AICTE, NIRF accreditation or internal evaluations.",
-    tag: "Analytics",
     path: "/analytics",
   },
   {
@@ -55,7 +51,6 @@ const featuresBottom = [
     title: "Integration Support",
     subtitle:
       "Seamlessly connect with LMS, ERP systems, and digital university platforms.",
-    tag: "Enterprise",
     path: "/IntegrationSupport",
   },
 ];

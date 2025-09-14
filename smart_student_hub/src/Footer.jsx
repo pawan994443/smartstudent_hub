@@ -19,21 +19,21 @@ export default function Footer() {
           
           <div className="flex gap-4 mt-5">
             <a
-              href="#"
+              href="https://github.com/"
               aria-label="GitHub"
               className="hover:text-blue-400 transition"
             >
               <FaGithub size={20} />
             </a>
             <a
-              href="#"
+              href="https://x.com/"
               aria-label="Twitter"
               className="hover:text-blue-400 transition"
             >
               <FaTwitter size={20} />
             </a>
             <a
-              href="#"
+              href="https://in.linkedin.com/"
               aria-label="LinkedIn"
               className="hover:text-blue-400 transition"
             >
@@ -85,7 +85,7 @@ export default function Footer() {
 
       
       <div className="border-t border-gray-700 mt-10 pt-5 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
-        <p>© 2024 Smart Student Hub. All rights reserved.</p>
+        <p className="text-center">© 2025 Smart Student Hub. All rights reserved.</p>
         <div className="flex gap-6 mt-3 md:mt-0">
           <a href="#" className="hover:text-blue-400">Privacy Policy</a>
           <a href="#" className="hover:text-blue-400">Terms of Service</a>

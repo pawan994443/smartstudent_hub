@@ -1,4 +1,4 @@
-// FacultyApprovalPanel.jsx
+
 import React, { useEffect, useState } from "react";
 import { db } from "./firebase";
 import {
@@ -14,11 +14,11 @@ export default function FacultyApprovalPanel() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch all student records
+  
   const fetchRecords = async () => {
     setLoading(true);
     try {
-      // Assuming 'students' collection and each student has 'records' subcollection
+      
       const studentsSnapshot = await getDocs(collection(db, "students"));
       let allRecords = [];
 
@@ -49,7 +49,7 @@ export default function FacultyApprovalPanel() {
     fetchRecords();
   }, []);
 
-  // Approve or reject a record
+  
   const updateStatus = async (studentId, recordId, status) => {
     try {
       const recordRef = doc(db, "students", studentId, "records", recordId);

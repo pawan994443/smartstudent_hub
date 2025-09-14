@@ -10,14 +10,14 @@ export default function Portfolio() {
     downloads: 12,
   });
 
-  const [showPreview, setShowPreview] = useState(false);
-  const portfolioLink = "https://portfolio.smartstudent.dev/alex-johnson";
+  const [showPreview, setShowPreview] = useState(null);
+  const portfolioLink = "https://portfolio.smartstudent.dev/pawan_singh";
 
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     doc.text("Alex Johnson - Verified Portfolio", 20, 20);
-    doc.text("🎓 Computer Science Student | GPA: 3.8/4.0", 20, 30);
+    doc.text(" Computer Science Student | GPA: 3.8/4.0", 20, 30);
     doc.text("Achievements:", 20, 50);
     doc.text(" - Dean's List - 3 Semesters", 25, 60);
     doc.text(" - Academic Excellence Award", 25, 70);
@@ -28,13 +28,13 @@ export default function Portfolio() {
     doc.save("portfolio.pdf");
 
     setStats((prev) => ({ ...prev, downloads: prev.downloads + 1 }));
-    alert("✅ Portfolio PDF Downloaded!");
+    alert(" Portfolio PDF Downloaded!");
   };
 
   
   const handleCopyLink = () => {
     navigator.clipboard.writeText(portfolioLink);
-    alert("🔗 Portfolio link copied to clipboard!");
+    alert(" Portfolio link copied to clipboard!");
   };
 
 
@@ -49,7 +49,7 @@ export default function Portfolio() {
         .then(() => console.log("Shared successfully"))
         .catch((err) => console.error("Share failed:", err));
     } else {
-      alert("⚠️ Sharing not supported on this device.");
+      alert(" Sharing not supported on this device.");
     }
   };
 
@@ -71,7 +71,7 @@ export default function Portfolio() {
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-xl shadow-md p-6">
             <h2 className="text-2xl font-semibold">
-              Alex Johnson Portfolio{" "}
+              Pawan Singh{" "}
               <span className="ml-2 text-green-500 text-sm font-medium">
                 ✔ Verified
               </span>
@@ -139,7 +139,7 @@ export default function Portfolio() {
               className="text-center mt-3 text-gray-500 cursor-pointer hover:underline"
               onClick={() => setShowPreview(true)}
             >
-              👁 Preview Portfolio
+               Preview Portfolio
             </p>
           </div>
 
@@ -186,7 +186,7 @@ export default function Portfolio() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-6 z-50">
           <div className="bg-white rounded-xl shadow-lg max-w-3xl w-full p-6 relative">
             <button
-              onClick={() => setShowPreview(false)}
+              onClick={() => setShowPreview(null)}
               className="absolute top-2 right-2 bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
             >
               ✖

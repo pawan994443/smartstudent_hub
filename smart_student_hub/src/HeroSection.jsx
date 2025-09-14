@@ -28,7 +28,7 @@ export default function HeroSection() {
         </p>
 
         <div className="flex space-x-4">
-          <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 "onClick={"/api/app/StudentDashboard"}>
+          <button className="px-6 py-3 bg-yellow-600 text-white rounded-lg font-semibold hover:bg-gray-700 ">
             Start Building Portfolio 
           </button>
           <button className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50">
@@ -50,27 +50,17 @@ export default function HeroSection() {
             {[...Array(5)].map((_, i) => (
               <FaStar key={i} />
             ))}
-            <span className="ml-2 text-gray-600">4.9/5 rating</span>
+            <span className="ml-2 text-gray-600">4.9 rating</span>
           </div>
         </div>
       </div>
-
-      
       <div className="relative mt-10 md:mt-0">
         <img
-          src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg"
+          src="https://png.pngtree.com/background/20230621/original/pngtree-academic-achievement-in-3d-rendered-graduation-cap-and-books-picture-image_3911387.jpg"
           alt="Students working"
-          className="rounded-2xl shadow-lg w-[480px] h-[300px] object-cover"
+          className="rounded-2xl shadow-lg w-[640px] h-[340px] object-cover"
         />
-
         
-        <div className="absolute top-4 left-4 bg-white shadow-md rounded-lg px-4 py-2 text-sm font-medium text-green-600">
-          ✅ Achievement Verified <br />
-          
-        </div>
-
-        
-       
       </div>
     </div>
   );
