@@ -1,82 +1,141 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { auth } from "./firebase"; 
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile
+} from "firebase/auth";
 
-export default function Login({ onBack }) {
+export default function Login() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
     username: "",
     emailOrPhone: "",
-    password: "",
+    password: ""
   });
+
+  const [mode, setMode] = useState("login"); 
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSignIn = async () => {
+  const handleSubmit = async () => {
+    if (!form.emailOrPhone || !form.password || (mode === "register" && !form.username)) {
+      alert("⚠️ Please fill all fields");
+      return;
+    }
+
     try {
-      const res = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          emailOrPhone: form.emailOrPhone,
-          password: form.password,
-        }),
-      });
+      setLoading(true);
 
-      const data = await res.json();
+      if (mode === "register") {
+        
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          form.emailOrPhone,
+          form.password
+        );
 
-      if (!res.ok) {
-        alert(data.error || "Login failed");
-        return;
+        
+        await updateProfile(userCredential.user, {
+          displayName: form.username
+        });
+
+        alert("✅ Registration successful! You can now log in.");
+        setMode("login");
+        setForm({ username: "", emailOrPhone: "", password: "" });
+
+      } else {
+        
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          form.emailOrPhone,
+          form.password
+        );
+
+        
+        const userData = {
+          uid: userCredential.user.uid,
+          email: userCredential.user.email,
+          displayName: userCredential.user.displayName
+        };
+
+        alert(` Welcome back, ${userData.displayName || "Student"}!`);
+        navigate("/#", { state: { user: userData } });
       }
 
-      alert("Thank you for logging in ✨");
-      navigate("/student-dashboard", { state: { user: data.user } });
     } catch (err) {
-      console.error("Login Error:", err.message);
-      alert("Login failed");
+      console.error(`${mode} Error:`, err);
+      let errorMsg = "⚠️ Something went wrong!";
+      switch (err.code) {
+        case "auth/email-already-in-use":
+          errorMsg = "⚠️ Email already registered";
+          break;
+        case "auth/invalid-email":
+          errorMsg = "⚠️ Invalid email address";
+          break;
+        case "auth/user-not-found":
+          errorMsg = "⚠️ No account found with this email";
+          break;
+        case "auth/wrong-password":
+          errorMsg = "⚠️ Incorrect password";
+          break;
+        case "auth/weak-password":
+          errorMsg = "⚠️ Password should be at least 6 characters";
+          break;
+        default:
+          errorMsg = err.message;
+      }
+      alert(errorMsg);
+
+    } finally {
+      setLoading(null);
     }
   };
 
-  const handleSignUp = () => {
-    alert("Signup flow not implemented yet");
+  const switchMode = () => {
+    setMode(mode === "login" ? "register" : "login");
+    setForm({ username: "", emailOrPhone: "", password: "" });
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-600 to-green-500 p-4">
       <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md relative">
         <button
-          onClick={onBack}
+          onClick={() => navigate(-1)}
           className="absolute top-4 left-4 flex items-center text-gray-600 hover:text-blue-600"
         >
-          <ArrowLeft size={18} className="mr-1" />
-          Back
+          <ArrowLeft size={18} className="mr-1" /> Back
         </button>
 
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Student Login
+          {mode === "login" ? "Student Login" : "Student Registration"}
         </h2>
 
         <div className="space-y-4">
+          {mode === "register" && (
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={form.username}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            />
+          )}
           <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={form.username}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-          />
-          <input
-            type="text"
+            type="email"
             name="emailOrPhone"
-            placeholder="Email or Phone"
+            placeholder="Email"
             value={form.emailOrPhone}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-          />
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            />
           <input
             type="password"
             name="password"
@@ -89,16 +148,18 @@ export default function Login({ onBack }) {
 
         <div className="mt-6 space-y-3">
           <button
-            onClick={handleSignIn}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition"
+            onClick={handleSubmit}
+            disabled={loading}
+            className={`w-full ${mode === "login" ? "bg-blue-600" : "bg-green-600"} text-white py-2 rounded-lg font-medium hover:opacity-90 transition`}
           >
-            Sign In
+            {loading ? "Please wait..." : mode === "login" ? "Sign In" : "Register"}
           </button>
+
           <button
-            onClick={handleSignUp}
+            onClick={switchMode}
             className="w-full border border-gray-300 py-2 rounded-lg font-medium hover:bg-gray-100 transition"
           >
-            Sign Up
+            {mode === "login" ? "Don't have an account? Register" : "Already have an account? Login"}
           </button>
         </div>
       </div>

@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -7,14 +6,13 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Dummy user for demo
 const dummyUser = {
   username: "pawan@72",
   emailOrPhone: "pawankumarbxr2019@gmail.com",
   password: "123456",
 };
 
-// Sign Up route (just respond for now)
+
 app.post("/signup", (req, res) => {
   const { username, emailOrPhone, password } = req.body;
   if (!username || !emailOrPhone || !password) {
@@ -24,7 +22,7 @@ app.post("/signup", (req, res) => {
   res.json({ message: "Signup successful" });
 });
 
-// Login route
+
 app.post("/login", (req, res) => {
   const { emailOrPhone, password } = req.body;
 
@@ -40,7 +38,7 @@ app.post("/login", (req, res) => {
     });
   }
 
-  res.status(401).json({ error: "Invalid credentials" });
+  res.status(401).json({error:"Invalid Username!"});
 });
 
 app.listen(PORT, () => {

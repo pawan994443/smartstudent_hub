@@ -7,7 +7,6 @@ import {
   BarChart2,
   Link,
 } from "lucide-react";
-import FeatureModal from "./FeatureModal";
 import { useNavigate } from "react-router-dom";
 
 const featuresBottom = [
@@ -17,6 +16,7 @@ const featuresBottom = [
     subtitle:
       "Real-time updates on academic performance, attendance, and activities with intuitive visualizations.",
     tag: "Core Feature",
+    path: "/StudentDashboard",
   },
   {
     icon: <ClipboardCheck className="text-green-500 w-8 h-8" />,
@@ -24,6 +24,7 @@ const featuresBottom = [
     subtitle:
       "Upload and validate participation in seminars, conferences, MOOCs, internships, and more.",
     tag: "Popular",
+    path: "/activity-tracker",
   },
   {
     icon: <Users className="text-yellow-500 w-8 h-8" />,
@@ -31,6 +32,7 @@ const featuresBottom = [
     subtitle:
       "Faculty & admin approval system to maintain credibility and verify all uploaded records.",
     tag: "Verified",
+    path: "/faculty-approval",
   },
   {
     icon: <Download className="text-blue-600 w-8 h-8" />,
@@ -38,6 +40,7 @@ const featuresBottom = [
     subtitle:
       "Downloadable & shareable verified student portfolio in PDF format or web link.",
     tag: "Essential",
+    path: "/auto-portfolio",
   },
   {
     icon: <BarChart2 className="text-green-500 w-8 h-8" />,
@@ -45,6 +48,7 @@ const featuresBottom = [
     subtitle:
       "Generate reports for NAAC, AICTE, NIRF accreditation or internal evaluations.",
     tag: "Analytics",
+    path: "/analytics",
   },
   {
     icon: <Link className="text-yellow-500 w-8 h-8" />,
@@ -52,21 +56,21 @@ const featuresBottom = [
     subtitle:
       "Seamlessly connect with LMS, ERP systems, and digital university platforms.",
     tag: "Enterprise",
+    path: "/IntegrationSupport",
   },
 ];
 
 export default function Features() {
-  const [selectedFeature, setSelectedFeature] = useState(null);
   const navigate = useNavigate();
 
-  const handleGetStarted = () => {
-    setSelectedFeature(null);
-    navigate("/login"); 
-  }
+  const handleFeatureClick = (feature) => {
+    if (feature.path) {
+      navigate(feature.path); 
+    }
+  };
 
   return (
     <section className="py-16 bg-gray-50">
-     
       <div className="text-center max-w-3xl mx-auto mb-12">
         <h2 className="text-3xl font-bold">
           Everything You Need for{" "}
@@ -79,13 +83,12 @@ export default function Features() {
         </p>
       </div>
 
-      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {featuresBottom.map((feature, i) => (
           <div
             key={i}
             className="bg-white shadow-sm rounded-xl p-6 hover:shadow-lg transition relative cursor-pointer"
-            onClick={() => setSelectedFeature(feature)}
+            onClick={() => handleFeatureClick(feature)}
           >
             <div className="flex items-center space-x-4">
               {feature.icon}
@@ -101,15 +104,6 @@ export default function Features() {
           </div>
         ))}
       </div>
-
-      
-      {selectedFeature && (
-        <FeatureModal
-          feature={selectedFeature}
-          onClose={() => setSelectedFeature(null)}
-          onGetStarted={handleGetStarted}
-        />
-      )}
     </section>
   );
 }

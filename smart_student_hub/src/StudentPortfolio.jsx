@@ -3,8 +3,8 @@ import React, { useState } from "react";
 export default function StudentPortfolio() {
   const [portfolio, setPortfolio] = useState({
     photo: null,
-    name: "John Doe",
-    email: "john@example.com",
+    name: "Piyush",
+    email: "piyush@example.com",
     phone: "9876543210",
     dob: "2002-05-20",
     academic: [],
@@ -83,7 +83,7 @@ export default function StudentPortfolio() {
         {isEditing ? "💾 Save Profile" : "✏️ Edit Profile"}
       </button>
 
-      {/* === Profile Photo + Basic Info === */}
+      
       <section className="mb-10 border p-4 rounded-md flex items-center gap-6">
         <div>
           {isEditing ? (
@@ -102,7 +102,7 @@ export default function StudentPortfolio() {
               src={
                 portfolio.photo
                   ? URL.createObjectURL(portfolio.photo)
-                  : "https://via.placeholder.com/100"
+                  : ""
               }
               alt="Student"
               className="w-28 h-28 object-cover rounded-full"
@@ -156,7 +156,7 @@ export default function StudentPortfolio() {
         </div>
       </section>
 
-      {/* === Academic Section === */}
+      
       <section className="mb-10">
         <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
           Academic Achievements
@@ -234,7 +234,7 @@ export default function StudentPortfolio() {
             ))}
       </section>
 
-      {/* === Non-Academic Section === */}
+      
       <section>
         <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
           Non-Academic Activities

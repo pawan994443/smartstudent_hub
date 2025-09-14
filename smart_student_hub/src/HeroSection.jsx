@@ -5,7 +5,6 @@ export default function HeroSection() {
   const [views, setViews] = useState(15);
   const [students] = useState(5000);
 
-  // Auto increase portfolio views
   useEffect(() => {
     const interval = setInterval(() => {
       setViews((prev) => prev + 1);
@@ -15,12 +14,8 @@ export default function HeroSection() {
 
   return (
     <div className="flex flex-col md:flex-row justify-between items-center px-10 py-16 bg-gradient-to-br from-gray-50 to-white">
-      {/* Left Side */}
+      
       <div className="max-w-xl space-y-6">
-        <span className="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full text-sm font-medium">
-          🚀 Transforming Student Success
-        </span>
-
         <h1 className="text-5xl font-bold text-gray-900 leading-tight">
           Build Your <span className="text-blue-500">Verified</span> Academic
           Portfolio
@@ -33,15 +28,15 @@ export default function HeroSection() {
         </p>
 
         <div className="flex space-x-4">
-          <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">
-            Start Building Portfolio
+          <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 "onClick={"/api/app/StudentDashboard"}>
+            Start Building Portfolio 
           </button>
           <button className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50">
             Watch Demo
           </button>
         </div>
 
-        {/* Students + Rating */}
+        
         <div className="flex items-center space-x-6 mt-4">
           <div className="flex items-center">
             <div className="flex -space-x-2">
@@ -60,7 +55,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Right Side */}
+      
       <div className="relative mt-10 md:mt-0">
         <img
           src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg"
@@ -68,17 +63,14 @@ export default function HeroSection() {
           className="rounded-2xl shadow-lg w-[480px] h-[300px] object-cover"
         />
 
-        {/* Achievement Tag */}
+        
         <div className="absolute top-4 left-4 bg-white shadow-md rounded-lg px-4 py-2 text-sm font-medium text-green-600">
           ✅ Achievement Verified <br />
-          <span className="text-gray-500 text-xs">Hackathon Winner</span>
+          
         </div>
 
-        {/* Portfolio Views */}
-        <div className="absolute bottom-4 right-4 bg-white shadow-md rounded-lg px-4 py-2 text-sm font-medium text-yellow-600">
-          📂 Portfolio Shared <br />
-          <span className="text-gray-500 text-xs">{views} Views Today</span>
-        </div>
+        
+       
       </div>
     </div>
   );

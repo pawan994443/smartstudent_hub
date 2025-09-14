@@ -24,7 +24,7 @@ export default function InstitutionDashboard() {
 
   return (
     <div className="bg-gray-50 min-h-screen py-10 px-6 space-y-20">
-      {/* Features Section */}
+      
       <section id="features" className="text-center">
         <h2 className="text-2xl font-bold text-blue-600 mb-4">Features</h2>
         <p className="text-gray-600">
@@ -32,12 +32,12 @@ export default function InstitutionDashboard() {
         </p>
       </section>
 
-      {/* Dashboard Section */}
+      
       <section id="dashboard">
         <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">
           📋 Institution Dashboard
         </h2>
-        {/* Stats */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard
             icon={<FaUsers />}
@@ -66,7 +66,7 @@ export default function InstitutionDashboard() {
         </div>
       </section>
 
-      {/* Portfolio Section */}
+      
       <section id="portfolio" className="text-center">
         <h2 className="text-2xl font-bold text-blue-600 mb-4">🎨 Portfolio</h2>
         <p className="text-gray-600">
@@ -74,12 +74,12 @@ export default function InstitutionDashboard() {
         </p>
       </section>
 
-      {/* Analytics Section */}
+      
       <section
         id="analytics"
         className="grid grid-cols-1 lg:grid-cols-3 gap-6"
       >
-        {/* Analytics Dashboard */}
+        
         <div className="bg-white rounded-xl shadow-md p-6 lg:col-span-2">
           <h3 className="text-lg font-semibold mb-4 flex items-center">
             📊 Institution Analytics Dashboard
@@ -108,7 +108,7 @@ export default function InstitutionDashboard() {
           </div>
         </div>
 
-        {/* Generate Reports */}
+        
         <div className="space-y-6">
           <ReportCard
             title="NAAC Accreditation Report"
@@ -141,7 +141,7 @@ export default function InstitutionDashboard() {
             borderColor="border-yellow-500"
           />
 
-          {/* Automated Reports */}
+          
           <div className="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-xl shadow-md p-6 text-center">
             <FaCalendarAlt className="mx-auto text-3xl mb-3" />
             <h3 className="text-lg font-semibold mb-2">Automated Reports</h3>
@@ -159,7 +159,7 @@ export default function InstitutionDashboard() {
         </div>
       </section>
 
-      {/* Generated Reports Log */}
+      
       {reports.length > 0 && (
         <div className="mt-10 bg-white p-6 rounded-xl shadow-md">
           <h3 className="text-lg font-semibold mb-4">Generated Reports Log</h3>
@@ -174,7 +174,7 @@ export default function InstitutionDashboard() {
   );
 }
 
-// Reusable Stat Card
+
 function StatCard({ icon, value, label, growth }) {
   return (
     <div className="bg-white rounded-xl shadow-md p-6 flex items-center justify-between">
@@ -188,7 +188,7 @@ function StatCard({ icon, value, label, growth }) {
   );
 }
 
-// Reusable Report Card
+
 function ReportCard({ title, items, onClick, borderColor }) {
   return (
     <div
